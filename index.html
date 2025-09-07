@@ -1,188 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Twincher</title>
-  <meta name="description" content="Twincher — SHOW YOUR CREATE BEFORE IT'S GONE." />
-
   <style>
-    :root{
-      --bg:#000;              /* pozadí */
-      --fg:#fff;              /* primární text */
-      --muted:#b3b3b3;        /* sekundární text */
-      --brand:#ffffff;        /* bílé akcenty */
-      --cta:#0AEFFF;          /* barva hlavního tlačítka */
-      --cta-2:#ffffff10;      /* outline tlačítko */
-      --radius:14px;
-      --shadow:0 10px 35px rgba(0,0,0,.6);
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      color:var(--fg);
-      background:var(--bg);
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
+    header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
     }
-
-    /* Header */
-    header{
-      position:fixed;
-      top:0; left:0; right:0;
-      height:64px;
-      display:flex;
-      align-items:center;
-      padding:0 18px;
-      background:linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.0));
-      z-index:20;
+    header img {
+      height: 50px;
     }
-    header img.logo{
-      height:46px; width:auto;
-      display:block;
-      filter: drop-shadow(0 3px 8px rgba(0,0,0,.35));
-      animation: fadeIn .7s ease both;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
     }
-
-    /* Hero */
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:96px 20px 40px; /* prostor pro fixed header */
+    .buttons {
+      display: flex;
+      gap: 20px;
     }
-    .hero{
-      width:min(1100px, 100%);
-      text-align:center;
-      animation: fadeIn .9s ease .05s both;
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
     }
-    h1{
-      margin:0 0 26px;
-      font-weight:800;
-      letter-spacing:.02em;
-      line-height:1.05;
-      font-size: clamp(28px, 4.8vw, 64px);
+    .btn-primary {
+      background: #00eaff;
+      color: black;
+      font-weight: bold;
     }
-    .sub{
-      margin:0 auto 34px;
-      max-width:800px;
-      color:var(--muted);
-      font-size: clamp(14px, 2.6vw, 18px);
-    }
-
-    /* CTAs */
-    .cta-row{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-bottom:36px;
-    }
-    .btn{
-      appearance:none; border:0; cursor:pointer;
-      padding:14px 22px;
-      border-radius:var(--radius);
-      font-weight:700;
-      letter-spacing:.02em;
-      transition:transform .08s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
-      box-shadow: var(--shadow);
-    }
-    .btn-primary{
-      color:#001015;
-      background:var(--cta);
-    }
-    .btn-primary:hover{ transform:translateY(-1px); }
-    .btn-ghost{
-      color:var(--fg);
-      background:var(--cta-2);
-      outline:1px solid rgba(255,255,255,.18);
-    }
-    .btn-ghost:hover{ transform:translateY(-1px); background:#ffffff18; }
-
-    /* 9:16 Video card */
-    .card{
-      width:min(420px, 92vw);
-      margin:0 auto 10px;
-      border-radius:calc(var(--radius) + 4px);
-      overflow:hidden;
-      background:#0b0b0b;
-      box-shadow: var(--shadow);
-      border:1px solid #1a1a1a;
-    }
-    .video-wrap{
-      position:relative;
-      aspect-ratio: 9 / 16;              /* udrží 9:16 */
-      background:#000;
-    }
-    .video-wrap video, .video-wrap iframe{
-      position:absolute;
-      inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .caption{
-      padding:12px 14px 16px;
-      font-size:14px;
-      color:var(--muted);
-    }
-
-    footer{
-      text-align:center;
-      color:#6b6b6b;
-      font-size:13px;
-      padding:26px 16px 40px;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0; transform:translateY(8px)}
-      to{opacity:1; transform:none}
+    .btn-secondary {
+      background: #222;
+      color: white;
+      border: 1px solid #555;
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER s logem vlevo nahoře -->
   <header>
-    <!-- POZN.: pokud logo po commitu zmizí, změň src na skutečný název souboru v repu (např. ten dlouhý .png) -->
-    <img class="logo" src="/twincher-logo.png" alt="Twincher Logo" />
+    <img src="1FCF582C-3519-45C3-BC8D-887996E2785D.png" alt="Twincher Logo">
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <h1>SHOW YOUR CREATE BEFORE IT’S GONE</h1>
-      <p class="sub">Ultra-rychlá, swipe-first platforma pro vertikální tvorbu. Žádný šum – jen tvoje věc a okamžitá energie.</p>
+  <h1>SHOW YOUR CREATE<br>BEFORE IT’S GONE</h1>
 
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#" role="button">Get the App</a>
-        <a class="btn btn-ghost" href="#" role="button">Join Waitlist</a>
-      </div>
-
-      <!-- 9:16 VIDEO – ukázka (autoplay, muted, loop). Nahraď src svým MP4 linkem. -->
-      <div class="card">
-        <div class="video-wrap">
-          <video
-            src="https://cdn.coverr.co/videos/coverr-typing-on-smartphone-7696/1080p.mp4"
-            playsinline
-            autoplay
-            muted
-            loop
-          ></video>
-        </div>
-        <div class="caption">Demo clip (9:16). Vyměň URL za své video – stačí nahrát MP4 někam veřejně a vložit odkaz.</div>
-      </div>
-
-      <footer>© <span id="y"></span> Twincher</footer>
-    </section>
-  </main>
-
-  <script>
-    // aktuální rok do patičky
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <div class="buttons">
+    <button class="btn btn-primary">Get the App</button>
+    <button class="btn btn-secondary">Join Waitlist</button>
+  </div>
 </body>
 </html>
