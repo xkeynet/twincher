@@ -1,89 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Twincher</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: white;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    header {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-    }
+    <title>Twincher — SHOW YOUR CREATE BEFORE IT'S GONE</title>
+    <meta name="description" content="Twincher je mobil-first video platforma (9:16). Tvoř, sdílej a monetizuj — 80 % jde tvůrcům." />
 
-    header img {
-      width: 60px;
-      height: auto;
-    }
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.twincher.com/" />
 
-    main {
-      max-width: 90%;
-    }
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Twincher — SHOW YOUR CREATE BEFORE IT'S GONE">
+    <meta property="og:description" content="Mobil-first swipe video platforma (9:16). Tvoř, sdílej a monetizuj.">
+    <meta property="og:url" content="https://www.twincher.com/">
+    <meta property="og:image" content="https://www.twincher.com/1FCF582C-3519-45C3-BC8D-887996E2785D.png">
 
-    h1 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Twincher — SHOW YOUR CREATE BEFORE IT'S GONE">
+    <meta name="twitter:description" content="Mobil-first swipe video platforma (9:16). Tvoř, sdílej a monetizuj.">
+    <meta name="twitter:image" content="https://www.twincher.com/1FCF582C-3519-45C3-BC8D-887996E2785D.png">
 
-    .buttons {
-      margin-top: 20px;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-    }
+    <!-- Google Search Console verification -->
+    <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
-    .btn {
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" />
 
-    .btn-primary {
-      background-color: #00e5ff;
-      color: black;
-    }
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NGGQHD4HHC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config','G-NGGQHD4HHC', { anonymize_ip: true });
+    </script>
 
-    .btn-primary:hover {
-      background-color: #00b8cc;
-    }
-
-    .btn-secondary {
-      background-color: #222;
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background-color: #444;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="./1FCF582C-3519-45C3-BC8D-887996E2785D.png" alt="Twincher Logo">
-  </header>
-
-  <main>
+    <style>
+      :root { --bg:#000; --fg:#fff; }
+      html, body { height:100%; }
+      body{
+        margin:0;
+        background:var(--bg);
+        color:var(--fg);
+        font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+        display:flex; align-items:center; justify-content:center; text-align:center;
+      }
+      .logo{
+        position:fixed; top:20px; left:20px;
+        width:72px; height:auto; opacity:.95; user-select:none; pointer-events:none;
+      }
+      h1{
+        margin:0 16px;
+        font-weight:800;
+        letter-spacing:.02em;
+        line-height:1.25;
+        font-size:28px;
+      }
+      @media (min-width:768px){ .logo{width:88px} h1{font-size:44px} }
+      @media (min-width:1200px){ h1{font-size:56px} }
+    </style>
+  </head>
+  <body>
+    <!-- světlé logo na černém pozadí (ponecháváme tvůj existující název souboru) -->
+    <img class="logo" src="/1FCF582C-3519-45C3-BC8D-887996E2785D.png" alt="Twincher logo" width="88" height="88" />
     <h1>SHOW YOUR CREATE BEFORE IT'S GONE</h1>
-    <div class="buttons">
-      <a href="#" class="btn btn-primary">Get the App</a>
-      <a href="#" class="btn btn-secondary">Join Waitlist</a>
-    </div>
-  </main>
-</body>
+  </body>
 </html>
