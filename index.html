@@ -2,151 +2,247 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Twincher</title>
-  <meta name="description" content="Twincher — swipe-first playground for vertical creativity." />
-  <link rel="icon" href="/assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png">
+
+  <!-- Basic SEO -->
+  <meta name="description" content="Twincher — ultra-fast, swipe-first platform for vertical creation. Zero noise — just your thing and instant energy." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NGGQHD4HHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NGGQHD4HHC');
+  </script>
 
   <style>
     :root{
-      --bg:#000; --fg:#fff; --muted:#a1a1aa; --panel:#0a0a0a; --pill:#121212;
-      --accent: #22d3ee; /* jemně, jen na hover a plus */
-      --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.45);
+      --bg:#000;
+      --text:#fff;
+      --muted:#a1a1a1;
+      --pill:#121212;
+      --rail:#101010;
+      --rail-border:rgba(255,255,255,0.06);
+      --accent:#00e5ff;
+      --safe: env(safe-area-inset-bottom, 0px);
+      --logo-size:60px; /* mobile default */
+      --rail-btn:56px;
+      --rail-gap:14px;
+      --nav-h:78px;     /* bottom tab bar height */
+      --hdr-h:72px;     /* top header approximate */
+      --radius:18px;
     }
+
+    @media (min-width:768px){
+      :root{
+        --logo-size:80px;       /* tablet/desktop */
+        --rail-btn:60px;
+        --rail-gap:16px;
+        --nav-h:86px;
+        --hdr-h:80px;
+      }
+    }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:var(--bg); color:var(--fg);
-      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
 
-    /* top bar */
-    .top{
-      position:fixed; inset:0 0 auto 0; height:68px; display:flex; align-items:center;
-      gap:18px; padding:0 16px; background:linear-gradient(#000,transparent 85%);
+    /* Header */
+    .header{
+      position:fixed; inset:0 0 auto 0;
+      height:var(--hdr-h);
+      display:flex; align-items:center; gap:16px;
+      padding:10px 16px 0 16px;
       z-index:20;
+      background:linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+      pointer-events:none; /* let content receive swipes; children re-enable */
     }
-    .logo{height:80px; width:auto; object-fit:contain;}
+    .logo{
+      width:var(--logo-size); height:auto;
+      pointer-events:auto;
+      user-select:none;
+    }
     .pill{
-      margin-left:6px; padding:10px 16px; border-radius:999px; background:var(--pill);
-      color:var(--fg); font-weight:600; display:flex; align-items:center; gap:8px;
-      box-shadow: var(--shadow);
+      margin:0 auto;             /* center between logo and right edge */
+      pointer-events:auto;
+      background:var(--pill);
+      color:#fff;
+      border:1px solid var(--rail-border);
+      padding:10px 20px;
+      border-radius:999px;
+      display:inline-flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.2px;
+      box-shadow:0 6px 24px rgba(0,0,0,.35);
     }
-    .pill svg{width:16px; height:16px; opacity:.8}
+    .pill svg{width:14px;height:14px;opacity:.8}
 
-    /* right actions */
-    .right-rail{
-      position:fixed; right:14px; top:110px; display:flex; flex-direction:column;
-      gap:14px; z-index:15;
+    /* Right action rail */
+    .rail{
+      position:fixed; right:10px; top:54%;
+      transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:var(--rail-gap);
+      z-index:15;
     }
-    .action{
-      width:56px; height:56px; border-radius:16px; background:#111; display:grid;
-      place-items:center; box-shadow:var(--shadow); border:1px solid #171717;
+    .rail .btn{
+      width:var(--rail-btn); height:var(--rail-btn);
+      background:var(--rail);
+      border:1px solid var(--rail-border);
+      border-radius:20px;
+      display:grid; place-items:center;
+      box-shadow:0 8px 30px rgba(0,0,0,.45);
     }
-    .action svg{width:24px; height:24px; fill:var(--fg); opacity:.92}
-    .live-badge{
-      position:absolute; right:0; transform:translateY(-120%);
-      background:#ef4444; color:#fff; font:700 12px/1 system-ui, sans-serif;
-      padding:4px 8px; border-radius:10px;
+    .rail .btn svg{width:56%; height:56%}
+    .live-tag{
+      position:absolute; top:-28px; right:4px;
+      background:#ff2d55; color:#fff; font-size:12px;
+      padding:4px 8px; border-radius:999px; font-weight:800;
+      letter-spacing:.3px; box-shadow:0 6px 20px rgba(255,45,85,.35);
     }
 
-    /* headline */
+    /* Slogan block */
     main{
-      min-height:100svh; display:grid; place-items:end center; padding:0 18px 110px;
-      /* necháme místo na pravý sloupec, aby text nepřekrýval ikony */
-      padding-right:140px;
+      min-height:100vh;
+      padding-top:calc(var(--hdr-h) + 12px);
+      padding-bottom:calc(var(--nav-h) + var(--safe));
+      display:flex; align-items:center; justify-content:center;
     }
-    .headline{
-      text-align:center; letter-spacing:.6px; font-weight:800;
-      font-size:clamp(28px, 6vw, 44px); line-height:1.12; margin:0;
-      text-shadow:0 1px 0 rgba(255,255,255,.02);
+    .hero{
+      width:min(100%, 920px);
+      padding:0 20px;
+      text-align:center;
+      line-height:1.14;
+      letter-spacing:.6px;
+      font-weight:900;
+      text-transform:uppercase;
+      font-size:clamp(28px, 5.8vw, 54px);
+      /* keep clear of the right rail on small screens */
+      margin-right:clamp(0px, 8vw, 96px);
     }
 
-    /* bottom nav */
+    /* Bottom nav */
     .nav{
-      position:fixed; inset:auto 0 0 0; height:84px; backdrop-filter:saturate(140%) blur(12px);
-      background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.75));
-      border-top:1px solid #18181b; display:flex; justify-content:space-around; align-items:center;
-      z-index:20;
+      position:fixed; inset:auto 0 0 0;
+      height:calc(var(--nav-h) + var(--safe));
+      padding-bottom:var(--safe);
+      background:rgba(0,0,0,.75);
+      backdrop-filter: blur(10px);
+      border-top:1px solid var(--rail-border);
+      display:grid; grid-template-columns:repeat(5, 1fr);
+      align-items:center; z-index:20;
     }
-    .tab{display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--muted); font-size:12px}
-    .tab svg{width:22px; height:22px; fill:currentColor}
-    .tab.active{color:var(--fg)}
-    .plus{
-      width:64px; height:64px; border-radius:18px; background:#0b0b0b; border:1px solid #1f1f1f;
-      display:grid; place-items:center; box-shadow:var(--shadow);
+    .tab{
+      height:var(--nav-h);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:6px; color:#cfcfcf; font-size:12px; font-weight:600;
     }
-    .plus svg{width:28px; height:28px; fill:var(--accent)}
-    .tab:active .plus{outline:2px solid var(--accent); outline-offset:2px}
+    .tab svg{width:22px; height:22px; opacity:.95}
+    .tab--plus{
+      justify-self:center;
+      width:72px; height:44px; border-radius:14px;
+      background:linear-gradient(180deg, #00e5ff, #00c7ff);
+      color:#001014;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 10px 30px rgba(0,229,255,.35);
+    }
+    .tab--plus svg{width:24px;height:24px}
 
-    @media (max-width:420px){
-      .right-rail{right:10px; gap:12px}
-      .action{width:52px; height:52px}
-      main{padding-right:126px}
+    /* Accessibility focus & tap */
+    .btn, .tab, .pill{outline:none; transition:transform .06s ease, opacity .2s ease}
+    .btn:active, .tab:active, .pill:active{transform:translateY(1px); opacity:.9}
+
+    /* Hide labels on very small widths for cleanliness */
+    @media (max-width:360px){
+      .tab span{display:none}
     }
   </style>
 </head>
 <body>
 
-  <!-- Top -->
-  <header class="top">
+  <!-- Header -->
+  <header class="header" aria-label="Top navigation">
     <img class="logo" src="/assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png" alt="Twincher Logo" />
-    <div class="pill">
+
+    <div class="pill" role="button" aria-haspopup="menu" aria-label="For You">
       <span>For You</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M7 9l5 5 5-5H7z"/>
+      </svg>
     </div>
   </header>
 
-  <!-- Right actions -->
-  <aside class="right-rail" aria-label="Actions">
-    <span class="live-badge">LIVE</span>
+  <!-- Right action rail -->
+  <aside class="rail" aria-label="Quick actions">
+    <div class="live-tag">LIVE</div>
 
-    <button class="action" aria-label="Go Live">
-      <svg viewBox="0 0 24 24"><path d="M4 7h11a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2zm18 2l-4 2.5v2L22 16V9z"/></svg>
+    <button class="btn" aria-label="Go Live">
+      <!-- camera -->
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M17 10.5V7a2 2 0 0 0-2-2H5A2 2 0 0 0 3 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3.5l4 3.5V7l-4 3.5z"/></svg>
     </button>
-    <button class="action" aria-label="Like">
-      <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.33-7A5.33 5.33 0 017.67 4.7L12 8.2l4.33-3.5A5.33 5.33 0 0121.33 14c-2.63 2.65-9.33 7-9.33 7z"/></svg>
+
+    <button class="btn" aria-label="Like">
+      <!-- heart -->
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.7-4.7-9.4-9.3C1.5 7.7 3.7 5 6.7 5c1.9 0 3.1 1 3.9 2 0.8-1 2-2 3.9-2 3 0 5.2 2.7 4.1 6.7C19.7 16.3 12 21 12 21z"/></svg>
     </button>
-    <button class="action" aria-label="Sound">
-      <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 5V5l-5 5H4z"/></svg>
+
+    <button class="btn" aria-label="Sound">
+      <!-- speaker -->
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M4 9v6h4l5 4V5L8 9H4zm13.5 3a4.5 4.5 0 0 0-2.7-4.1v8.2c1.6-.8 2.7-2.4 2.7-4.1z"/></svg>
     </button>
-    <button class="action" aria-label="Pin">
-      <svg viewBox="0 0 24 24"><path d="M14 3l7 7-4 1-3 8-2-6-6-2 8-3 0-5z"/></svg>
+
+    <button class="btn" aria-label="Pin">
+      <!-- pin -->
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M14 3l7 7-3 3-1-1-5 5v4h-2v-5l5-5-1-1 3-3-3-3zM5 9l4 4-4 4-1-1 3-3-3-3 1-1z"/></svg>
     </button>
-    <button class="action" aria-label="More">
-      <svg viewBox="0 0 24 24"><path d="M12 13a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-7 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm14 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+
+    <button class="btn" aria-label="More">
+      <!-- dots -->
+      <svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
     </button>
   </aside>
 
-  <!-- Content -->
+  <!-- Main / Slogan -->
   <main>
-    <h1 class="headline">SHOW YOUR<br>CREATE BEFORE<br>IT’S GONE</h1>
+    <h1 class="hero" aria-label="Tagline">
+      SHOW YOUR<br/>
+      CREATE BEFORE<br/>
+      IT’S GONE
+    </h1>
   </main>
 
-  <!-- Bottom nav -->
-  <nav class="nav" aria-label="Primary">
-    <div class="tab active">
-      <svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z"/></svg>
+  <!-- Bottom tab bar -->
+  <nav class="nav" aria-label="Bottom navigation">
+    <a class="tab" href="#" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3l9 8h-3v10H6V11H3l9-8z"/></svg>
       <span>Home</span>
-    </div>
-    <div class="tab">
-      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1015.5 14l4.5 4.5-1.5 1.5L15.5 14zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>
+    </a>
+    <a class="tab" href="#" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M10 18a8 8 0 1 1 6.32-3.16l5.42 5.42-1.41 1.41-5.42-5.42A8 8 0 0 1 10 18z"/></svg>
       <span>Search</span>
-    </div>
-    <div class="tab">
-      <div class="plus">
-        <svg viewBox="0 0 24 24"><path d="M11 11V6h2v5h5v2h-5v5h-2v-5H6v-2z"/></svg>
-      </div>
-    </div>
-    <div class="tab">
-      <svg viewBox="0 0 24 24"><path d="M6 4l12 0-1 13-5 3-5-3z"/></svg>
+    </a>
+    <a class="tab tab--plus" href="#" aria-label="Create">
+      <svg viewBox="0 0 24 24" fill="#001014"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+    </a>
+    <a class="tab" href="#" aria-label="Flag">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M6 3v18H4V3h2zm2 0h10l-3 4 3 4H8V3z"/></svg>
       <span>Flag</span>
-    </div>
-    <div class="tab">
-      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm-8 9v-1a7 7 0 0114 0v1H4z"/></svg>
+    </a>
+    <a class="tab" href="#" aria-label="Profile">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5z"/></svg>
       <span>Profile</span>
-    </div>
+    </a>
   </nav>
 
 </body>
