@@ -13,53 +13,54 @@
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    :root{
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
       --logo:80px;
-      --headline:clamp(28px, 6.5vw, 56px);
       --cyan:#25F4EE;   /* TikTok cyan */
       --pink:#FE2C55;   /* TikTok pink */
       --safeTop:16px; --safeSide:16px;
     }
-    * {box-sizing:border-box}
-    html, body {height:100%}
-    body {
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
       margin:0; background:var(--bg); color:var(--fg);
       display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
     }
 
     /* Top bar */
-    .top {
+    .top{
       display:flex; align-items:center; gap:12px;
       padding:var(--safeTop) var(--safeSide) 0 var(--safeSide);
     }
-    .logo {
-      height:var(--logo); width:auto; image-rendering:auto; user-select:none;
-    }
+    .logo{height:var(--logo); width:auto; image-rendering:auto; user-select:none;}
 
     /* Center slogan */
-    .stage {
+    .stage{
       display:grid; place-items:center; padding:24px var(--safeSide);
       text-align:center;
     }
-    h1 {
+    .slogan{
+      font-family:'Permanent Marker', cursive;
+      font-size:clamp(50px, 10vw, 88px); /* ještě větší */
+      line-height:1.2;
       margin:0;
-      line-height:1.1;
-      letter-spacing:.01em;
-      font-size:var(--headline);
-      font-family:'Bebas Neue', sans-serif;
-      font-weight:400;
+      text-align:center;
     }
-    .cyan {color:var(--cyan)}
-    .pink {color:var(--pink)}
+    .highlight-blue{color:var(--cyan)}
+    .highlight-pink{color:var(--pink)}
 
     /* Footer note */
-    footer {
+    footer{
       display:flex; align-items:center; justify-content:center;
-      padding:18px; color:var(--muted); font-size:13px; opacity:.95;
+      padding:20px;
+      font-family:'Inter', sans-serif;
+      font-size:14px;
+      font-weight:300;
+      color:var(--muted);
+      letter-spacing:0.5px;
       text-align:center;
     }
   </style>
@@ -85,18 +86,17 @@
     />
   </div>
 
-  <!-- CENTER: slogan přesně na 3 řádky -->
+  <!-- CENTER: slogan na 2 řádky -->
   <main class="stage" aria-label="Hero">
-    <h1>
-      <span class="cyan">SHOW</span> YOUR<br/>
-      <span class="pink">CREATE</span><br/>
-      BEFORE IT’S GONE
+    <h1 class="slogan">
+      <span class="highlight-blue">SHOW</span> YOUR<br>
+      <span class="highlight-pink">CREATE</span> BEFORE IT'S GONE
     </h1>
   </main>
 
   <!-- BOTTOM: status -->
   <footer aria-label="Status">
-    This site is currently under construction.
+    This site is currently under construction
   </footer>
 
 </body>
