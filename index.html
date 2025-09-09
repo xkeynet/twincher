@@ -1,236 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Twincher</title>
-  <link rel="canonical" href="https://twincher.com" />
+
+  <!-- SEO -->
+  <meta name="description" content="Twincher — swipe-first vertical platform. Show your create before it's gone." />
+  <link rel="canonical" href="https://twincher.com/" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
-  <!-- Basic SEO -->
-  <meta name="description" content="SHOW YOUR CREATE BEFORE IT'S GONE" />
-  <meta name="theme-color" content="#000000" />
+  <style>
+    :root{
+      --bg:#000; --fg:#fff; --muted:#9aa0a6;
+      --logo:80px;
+      --headline:clamp(28px, 6.5vw, 56px);
+      --cyan:#25F4EE;   /* TikTok cyan */
+      --pink:#FE2C55;   /* TikTok pink */
+      --safeTop:16px; --safeSide:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
+    }
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Twincher" />
-  <meta property="og:description" content="SHOW YOUR CREATE BEFORE IT'S GONE" />
-  <meta property="og:image" content="/assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png" />
-  <meta property="og:url" content="https://twincher.com" />
+    /* Top bar */
+    .top{
+      display:flex; align-items:center; gap:12px;
+      padding:var(--safeTop) var(--safeSide) 0 var(--safeSide);
+    }
+    .logo{height:var(--logo); width:auto; image-rendering:auto; user-select:none;}
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Twincher" />
-  <meta name="twitter:description" content="SHOW YOUR CREATE BEFORE IT'S GONE" />
-  <meta name="twitter:image" content="/assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png" />
+    /* Center slogan */
+    .stage{
+      display:grid; place-items:center; padding:24px var(--safeSide);
+      text-align:center;
+    }
+    h1{
+      margin:0; font-weight:900; line-height:1.1; letter-spacing:.01em;
+      text-wrap:balance; font-size:var(--headline);
+    }
+    .cyan{color:var(--cyan)}
+    .pink{color:var(--pink)}
 
-  <!-- GA4 -->
+    /* Footer note */
+    footer{
+      display:flex; align-items:center; justify-content:center;
+      padding:18px; color:var(--muted); font-size:13px; opacity:.95;
+      text-align:center;
+    }
+  </style>
+
+  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NGGQHD4HHC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-NGGQHD4HHC');
   </script>
-
-  <style>
-    :root{
-      --bg:#000; --fg:#fff; --muted:#bbb;
-      --accent:#00E5FF; /* tyrkysové + */
-      --alert:#FF2D55;  /* červená kamera */
-      --space:16px;
-      --icon:28px;      /* standardní ikony */
-      --icon-lg:44px;   /* středové + */
-      --safe-right:96px;/* rezerva pro pravý panel, aby slogan nebyl přes ikony */
-    }
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{ height:100%; }
-    body{
-      background:var(--bg); color:var(--fg);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      overflow:hidden; /* app-like */
-    }
-
-    /* Logo – originál vlevo nahoře */
-    .logo{
-      position:fixed; top:16px; left:16px;
-      width:60px; height:auto; image-rendering:crisp-edges;
-      user-select:none; pointer-events:none; opacity:.98;
-      z-index:10;
-    }
-    @media (min-width:768px){ .logo{ width:80px; } }
-
-    /* Horní pruh: šipka dolů uprostřed, lupa vpravo (hranatá) */
-    .topbar{
-      position:fixed; top:0; left:0; right:0; height:64px;
-      display:flex; align-items:center; justify-content:center;
-      pointer-events:none; z-index:9;
-    }
-    .topbar .right{
-      position:absolute; right:16px; top:50%;
-      transform:translateY(-50%); display:flex; gap:16px;
-      pointer-events:auto;
-    }
-
-    /* Slogan uprostřed, s rezervou pro pravý panel */
-    .center{
-      position:absolute; inset:0;
-      display:grid; place-items:center; text-align:center;
-      padding:64px 16px 96px calc(16px); /* top/right/bottom/left */
-    }
-    .center-inner{
-      max-width:720px;
-      padding-right:var(--safe-right);
-    }
-    h1{
-      font-weight:800; letter-spacing:.02em; line-height:1.18;
-      font-size:28px; text-transform:uppercase;
-    }
-    @media (min-width:390px){ h1{ font-size:32px; } }
-    @media (min-width:768px){ h1{ font-size:48px; } }
-    @media (min-width:1200px){ h1{ font-size:56px; } }
-
-    /* Pravý svislý panel ikon */
-    .sidebar{
-      position:fixed; right:16px; top:50%;
-      transform:translateY(-50%); display:flex; flex-direction:column;
-      gap:20px; align-items:center; z-index:9;
-    }
-
-    /* Spodní nav – 5 ikon, středový + je tyrkysový a větší */
-    .tabbar{
-      position:fixed; left:0; right:0; bottom:0; height:72px;
-      display:flex; align-items:center; justify-content:space-around;
-      padding:0 8px 8px; background:linear-gradient(180deg, transparent, rgba(0,0,0,.5));
-      z-index:9;
-    }
-    .btn{ display:flex; align-items:center; justify-content:center; width:56px; height:56px; }
-    .btn.plus{ width:64px; height:64px; }
-    .btn:active{ transform:translateY(1px); }
-
-    /* Ikony – jednotný SVG styl, ostré hrany, bez rámečků */
-    svg{ width:var(--icon); height:var(--icon); display:block; }
-    .plus svg{ width:var(--icon-lg); height:var(--icon-lg); }
-    .stroke{ fill:none; stroke:var(--fg); stroke-width:2.25; stroke-linecap:square; stroke-linejoin:miter; vector-effect:non-scaling-stroke; }
-    .muted { stroke:var(--muted); }
-    .accent { stroke:var(--accent); }
-    .alert  { stroke:var(--alert); }
-
-    /* Pomocné odkazy (neklikají mimo ikony) */
-    a{ color:inherit; text-decoration:none; }
-  </style>
 </head>
 <body>
 
-  <!-- ORIGINÁLNÍ LOGO -->
-  <img class="logo" src="/assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png" alt="Twincher logo" />
-
-  <!-- TOP BAR: uprostřed šipka dolů, vpravo hranatá lupa -->
-  <div class="topbar">
-    <!-- uprostřed šipka dolů (bez textu) -->
-    <div aria-hidden="true">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <polyline points="6,8 12,14 18,8" />
-      </svg>
-    </div>
-    <div class="right">
-      <!-- hranatá lupa -->
-      <a href="#" aria-label="Search">
-        <svg viewBox="0 0 24 24" class="stroke">
-          <rect x="3" y="3" width="10" height="10" />
-          <line x1="14" y1="14" x2="20" y2="20" />
-        </svg>
-      </a>
-    </div>
+  <!-- TOP: originální logo vlevo nahoře (80 px) -->
+  <div class="top">
+    <img
+      class="logo"
+      src="assets/1FCF582C-3519-45C3-BC8D-887996E2785D.png"
+      alt="Twincher logo"
+      width="80" height="80"
+    />
   </div>
 
-  <!-- SLOGAN UPROSTŘED -->
-  <main class="center">
-    <div class="center-inner">
-      <h1>
-        SHOW YOUR<br>
-        CREATE<br>
-        BEFORE IT'S GONE
-      </h1>
-    </div>
+  <!-- CENTER: slogan přesně na 3 řádky, s barvami -->
+  <main class="stage" aria-label="Hero">
+    <h1>
+      <span class="cyan">SHOW</span> YOUR<br/>
+      <span class="pink">CREATE</span> BEFORE<br/>
+      IT’S GONE
+    </h1>
   </main>
 
-  <!-- PRAVÝ PANEL: srdce, komentář, sdílení, KAMERA (červená) -->
-  <aside class="sidebar" aria-label="Actions">
-    <!-- Heart (diamond-like, ostré hrany) -->
-    <a href="#" aria-label="Like">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <path d="M12 20 L4 12 L8 6 L12 8 L16 6 L20 12 Z"/>
-      </svg>
-    </a>
-    <!-- Comment (bublina bez zaoblení) -->
-    <a href="#" aria-label="Comments">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <rect x="3" y="4" width="18" height="12"/>
-        <polygon points="9,16 11,20 13,16"/>
-      </svg>
-    </a>
-    <!-- Share (šipky) -->
-    <a href="#" aria-label="Share">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <polyline points="6,12 12,6 12,18"/>
-        <line x1="12" y1="6" x2="18" y2="12"/>
-      </svg>
-    </a>
-    <!-- Camera (červený obrys) -->
-    <a href="#" aria-label="Live camera">
-      <svg viewBox="0 0 24 24" class="stroke alert">
-        <rect x="3" y="7" width="12" height="10"/>
-        <polygon points="15,10 21,8 21,16 15,14"/>
-      </svg>
-    </a>
-  </aside>
-
-  <!-- DOLNÍ NAV: Home, Search, PLUS (tyrkys), Flag, Profile -->
-  <nav class="tabbar" aria-label="Main navigation">
-    <!-- Home (domek ostrý) -->
-    <a href="#" class="btn" aria-label="Home">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <polygon points="4,12 12,5 20,12 20,20 4,20"/>
-        <line x1="10" y1="20" x2="10" y2="14"/>
-      </svg>
-    </a>
-
-    <!-- Search (hranatá lupa) -->
-    <a href="#" class="btn" aria-label="Search">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <rect x="3" y="3" width="10" height="10"/>
-        <line x1="14" y1="14" x2="20" y2="20"/>
-      </svg>
-    </a>
-
-    <!-- PLUS uprostřed – tyrkysové, větší -->
-    <a href="#" class="btn plus" aria-label="Create">
-      <svg viewBox="0 0 24 24" class="stroke accent">
-        <line x1="4" y1="12" x2="20" y2="12"/>
-        <line x1="12" y1="4" x2="12" y2="20"/>
-      </svg>
-    </a>
-
-    <!-- Flag (obrys, bez výplně) -->
-    <a href="#" class="btn" aria-label="Flag">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <polyline points="5,4 5,20"/>
-        <polyline points="5,5 18,7 14,10 18,13 5,15"/>
-      </svg>
-    </a>
-
-    <!-- Profile (hranatá silueta) -->
-    <a href="#" class="btn" aria-label="Profile">
-      <svg viewBox="0 0 24 24" class="stroke">
-        <rect x="8" y="4" width="8" height="6"/>
-        <rect x="6" y="12" width="12" height="6"/>
-      </svg>
-    </a>
-  </nav>
+  <!-- BOTTOM: status -->
+  <footer aria-label="Status">
+    This site is currently under construction.
+  </footer>
 
 </body>
 </html>
