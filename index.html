@@ -6,17 +6,14 @@
   <title>Twincher</title>
 
   <!-- SEO -->
-  <meta name="description" content="Twincher — swipe-first vertical platform. SHOW YOUR CREATE BEFORE IT'S GONE." />
+  <meta name="description" content="Twincher — swipe-first vertical platform. Show your create before it's gone." />
   <link rel="canonical" href="https://twincher.com/" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
   <style>
-    :root{
+    :root {
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
       --logo:80px;
       --headline:clamp(28px, 6.5vw, 56px);
@@ -30,19 +27,30 @@
       margin:0; background:var(--bg); color:var(--fg);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
       display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
+      position:relative; overflow:hidden;
+    }
+
+    /* Background video */
+    .bg-video {
+      position:fixed;
+      top:0; left:0; width:100%; height:100%;
+      object-fit:cover;
+      z-index:-1;
     }
 
     /* Top bar */
     .top{
       display:flex; align-items:center; gap:12px;
       padding:var(--safeTop) var(--safeSide) 0 var(--safeSide);
+      position:relative; z-index:2;
     }
     .logo{height:var(--logo); width:auto; image-rendering:auto; user-select:none;}
 
-    /* Center slogan */
+    /* Center slogan overlay */
     .stage{
       display:grid; place-items:center; padding:24px var(--safeSide);
       text-align:center;
+      position:relative; z-index:2;
     }
     h1{
       margin:0; font-weight:900; line-height:1.1; letter-spacing:.01em;
@@ -56,6 +64,7 @@
       display:flex; align-items:center; justify-content:center;
       padding:18px; color:var(--muted); font-size:13px; opacity:.95;
       text-align:center;
+      position:relative; z-index:2;
     }
   </style>
 
@@ -70,6 +79,11 @@
 </head>
 <body>
 
+  <!-- Background Video -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="assets/nyc.mp4" type="video/mp4">
+  </video>
+
   <!-- TOP: originální logo vlevo nahoře (80 px) -->
   <div class="top">
     <img
@@ -80,7 +94,7 @@
     />
   </div>
 
-  <!-- CENTER: slogan přesně na 3 řádky, s barvami -->
+  <!-- CENTER: slogan overlay -->
   <main class="stage" aria-label="Hero">
     <h1>
       <span class="cyan">SHOW</span> YOUR<br/>
