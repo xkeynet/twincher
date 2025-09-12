@@ -69,6 +69,24 @@
     .cyan { color:var(--cyan) }
     .pink { color:var(--pink) }
 
+    /* CTA button */
+    .cta-btn {
+      margin-top: 32px;
+      background: var(--cyan);
+      color: #000;
+      border: none;
+      border-radius: 50px; /* pilulka */
+      padding: 14px 36px;
+      font-size: 18px;
+      font-weight: 500; /* ne tučné, jen moderní */
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
     /* Footer note */
     footer {
       display:flex; align-items:center; justify-content:center;
@@ -106,13 +124,14 @@
     />
   </div>
 
-  <!-- CENTER: slogan přesně na 3 řádky, s barvami -->
+  <!-- CENTER: slogan přesně na 3 řádky + CTA button -->
   <main class="stage" aria-label="Hero">
     <h1>
       <span class="cyan">SHOW</span> YOUR<br/>
       <span class="pink">CREATE</span> BEFORE<br/>
       IT’S GONE
     </h1>
+    <button class="cta-btn">JOIN US</button>
   </main>
 
   <!-- BOTTOM: status -->
