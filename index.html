@@ -12,6 +12,8 @@
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
+  <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
+
   <style>
     :root {
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
@@ -21,50 +23,59 @@
       --pink:#FE2C55;   /* TikTok pink */
       --safeTop:16px; --safeSide:16px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    * { box-sizing:border-box }
+    html,body { height:100% }
+    body {
       margin:0; background:var(--bg); color:var(--fg);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
       display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
-      position:relative; overflow:hidden;
+      position:relative;
+      overflow:hidden;
     }
 
     /* Background video */
-    .bg-video {
-      position:fixed;
-      top:0; left:0; width:100%; height:100%;
-      object-fit:cover;
-      z-index:-1;
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
 
     /* Top bar */
-    .top{
+    .top {
       display:flex; align-items:center; gap:12px;
       padding:var(--safeTop) var(--safeSide) 0 var(--safeSide);
-      position:relative; z-index:2;
+      position:relative;
+      z-index:1;
     }
-    .logo{height:var(--logo); width:auto; image-rendering:auto; user-select:none;}
+    .logo {
+      height:var(--logo); width:auto;
+      image-rendering:auto; user-select:none;
+    }
 
-    /* Center slogan overlay */
-    .stage{
+    /* Center slogan */
+    .stage {
       display:grid; place-items:center; padding:24px var(--safeSide);
       text-align:center;
-      position:relative; z-index:2;
+      position:relative;
+      z-index:1;
     }
-    h1{
+    h1 {
       margin:0; font-weight:900; line-height:1.1; letter-spacing:.01em;
       text-wrap:balance; font-size:var(--headline);
+      color: var(--fg);
     }
-    .cyan{color:var(--cyan)}
-    .pink{color:var(--pink)}
+    .cyan { color:var(--cyan) }
+    .pink { color:var(--pink) }
 
     /* Footer note */
-    footer{
+    footer {
       display:flex; align-items:center; justify-content:center;
       padding:18px; color:var(--muted); font-size:13px; opacity:.95;
       text-align:center;
-      position:relative; z-index:2;
+      position:relative;
+      z-index:1;
     }
   </style>
 
@@ -79,9 +90,10 @@
 </head>
 <body>
 
-  <!-- Background Video -->
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="assets/nyc.mp4" type="video/mp4">
+  <!-- Background video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="assets/mixkit-skyscraper-in-the-city-seen-when-walking-the-street-40701-hd-ready.mp4" type="video/mp4" />
+    Your browser does not support HTML5 video.
   </video>
 
   <!-- TOP: originální logo vlevo nahoře (80 px) -->
@@ -94,7 +106,7 @@
     />
   </div>
 
-  <!-- CENTER: slogan overlay -->
+  <!-- CENTER: slogan přesně na 3 řádky, s barvami -->
   <main class="stage" aria-label="Hero">
     <h1>
       <span class="cyan">SHOW</span> YOUR<br/>
