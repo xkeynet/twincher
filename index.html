@@ -6,19 +6,20 @@
   <title>Twincher</title>
 
   <!-- SEO -->
-  <meta name="description" content="Twincher — swipe-first vertical platform. Show your create before it's gone." />
+  <meta name="description" content="Twincher — swipe-first vertical platform. SHOW YOUR CREATE BEFORE IT'S GONE." />
   <link rel="canonical" href="https://twincher.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
       --logo:80px;
+      --headline:clamp(28px, 6.5vw, 56px);
       --cyan:#25F4EE;   /* TikTok cyan */
       --pink:#FE2C55;   /* TikTok pink */
       --safeTop:16px; --safeSide:16px;
@@ -27,6 +28,7 @@
     html,body{height:100%}
     body{
       margin:0; background:var(--bg); color:var(--fg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
       display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
     }
 
@@ -42,25 +44,17 @@
       display:grid; place-items:center; padding:24px var(--safeSide);
       text-align:center;
     }
-    .slogan{
-      font-family:'Permanent Marker', cursive;
-      font-size:clamp(50px, 10vw, 88px); /* ještě větší */
-      line-height:1.2;
-      margin:0;
-      text-align:center;
+    h1{
+      margin:0; font-weight:900; line-height:1.1; letter-spacing:.01em;
+      text-wrap:balance; font-size:var(--headline);
     }
-    .highlight-blue{color:var(--cyan)}
-    .highlight-pink{color:var(--pink)}
+    .cyan{color:var(--cyan)}
+    .pink{color:var(--pink)}
 
     /* Footer note */
     footer{
       display:flex; align-items:center; justify-content:center;
-      padding:20px;
-      font-family:'Inter', sans-serif;
-      font-size:14px;
-      font-weight:300;
-      color:var(--muted);
-      letter-spacing:0.5px;
+      padding:18px; color:var(--muted); font-size:13px; opacity:.95;
       text-align:center;
     }
   </style>
@@ -86,17 +80,18 @@
     />
   </div>
 
-  <!-- CENTER: slogan na 2 řádky -->
+  <!-- CENTER: slogan přesně na 3 řádky, s barvami -->
   <main class="stage" aria-label="Hero">
-    <h1 class="slogan">
-      <span class="highlight-blue">SHOW</span> YOUR<br>
-      <span class="highlight-pink">CREATE</span> BEFORE IT'S GONE
+    <h1>
+      <span class="cyan">SHOW</span> YOUR<br/>
+      <span class="pink">CREATE</span> BEFORE<br/>
+      IT’S GONE
     </h1>
   </main>
 
   <!-- BOTTOM: status -->
   <footer aria-label="Status">
-    This site is currently under construction
+    This site is currently under construction.
   </footer>
 
 </body>
