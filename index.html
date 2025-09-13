@@ -15,7 +15,7 @@
   <!-- Favicon -->
   <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
 
-  <!-- Lucide (profi ikonset, MIT) -->
+  <!-- Lucide (ikonset) -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
   <style>
@@ -54,7 +54,7 @@
       text-align:center;
       z-index:3;
       user-select:none;
-      pointer-events:none; /* jen label, nebrání klikům pod ním */
+      pointer-events:none;
     }
     .top-center .label{
       color:#fff;
@@ -75,7 +75,7 @@
       filter: drop-shadow(0 1px 4px rgba(0,0,0,.35));
     }
 
-    /* Center stage (slogan + CTA) */
+    /* Center slogan + CTA */
     .stage{
       display:grid; place-items:center;
       padding:24px var(--safeSide);
@@ -122,9 +122,20 @@
 
   <!-- Background video -->
   <video autoplay muted loop playsinline id="bg-video">
-    <source src="assets/mixkit-skyscraper-in-the-city-seen-when-walking-the-street-40701-hd-ready.mp4" type="video/mp4" />
+    <source src="assets/v15044gf0000d18cfcvog65vobobp1s0.mp4" type="video/mp4" />
     Your browser does not support HTML5 video.
   </video>
+
+  <!-- Odmutování zvuku po prvním kliknutí -->
+  <script>
+    document.addEventListener('click', () => {
+      const video = document.getElementById('bg-video');
+      if (video) {
+        video.muted = false;
+        video.play();
+      }
+    }, { once: true });
+  </script>
 
   <!-- TOP (logo vlevo) -->
   <div class="top">
@@ -135,20 +146,19 @@
   <div class="top-center" aria-hidden="true">
     <div class="label">For You</div>
     <div class="arrow">
-      <!-- tenká „šipka dolů“ jako SVG, ladí s Lucide -->
       <svg viewBox="0 0 24 14">
         <path d="M3 3l9 8 9-8"></path>
       </svg>
     </div>
   </div>
 
-  <!-- CENTER -->
+  <!-- CENTER slogan + CTA -->
   <main class="stage" aria-label="Hero">
     <h1>SHOW YOUR<br/>CREATE BEFORE<br/>IT’S GONE</h1>
     <button class="cta-btn" aria-label="Join Twincher">JOIN US</button>
   </main>
 
-  <!-- RIGHT: side actions (bez spodního „user“) -->
+  <!-- RIGHT: side actions -->
   <aside class="side" aria-label="Actions">
     <div class="stack rec">
       <button aria-label="Record / Camera"><i data-lucide="video"></i></button>
