@@ -12,88 +12,90 @@
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="8x53RZUH8MhYK0f3LFtuQu5bOBKhqNUwMOjMUYvX4Rk" />
 
+  <!-- Favicon -->
   <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
 
   <style>
-    :root {
+    :root{
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
-      --logo:80px;
+      --logo-mobile:60px; --logo-desktop:80px;
       --headline:clamp(28px, 6.5vw, 56px);
-      --cyan:#25F4EE;   /* TikTok cyan */
-      --pink:#FE2C55;   /* TikTok pink */
+      --cyan:#25F4EE;     /* temporary accent for SHOW */
+      --pink:#FE2C55;     /* temporary accent for CREATE */
       --safeTop:16px; --safeSide:16px;
+      --navH:72px;        /* bottom nav height */
     }
-    * { box-sizing:border-box }
-    html,body { height:100% }
-    body {
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
       margin:0; background:var(--bg); color:var(--fg);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      display:grid; grid-template-rows:auto 1fr auto; min-height:100vh;
-      position:relative;
-      overflow:hidden;
+      min-height:100vh; position:relative; overflow:hidden;
+      /* account for iOS safe areas */
+      padding-bottom:calc(var(--navH) + env(safe-area-inset-bottom, 0px));
     }
 
     /* Background video */
-    #bg-video {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
+    #bg-video{
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      object-fit:cover; z-index:-1;
     }
 
     /* Top bar */
-    .top {
+    .top{
       display:flex; align-items:center; gap:12px;
       padding:var(--safeTop) var(--safeSide) 0 var(--safeSide);
-      position:relative;
-      z-index:1;
+      position:relative; z-index:1;
     }
-    .logo {
-      height:var(--logo); width:auto;
-      image-rendering:auto; user-select:none;
+    .logo{
+      height:var(--logo-mobile); width:auto; image-rendering:auto; user-select:none;
+    }
+    @media (min-width:768px){
+      .logo{ height:var(--logo-desktop) }
     }
 
     /* Center slogan */
-    .stage {
+    .stage{
       display:grid; place-items:center; padding:24px var(--safeSide);
-      text-align:center;
-      position:relative;
-      z-index:1;
+      text-align:center; position:relative; z-index:1;
+      /* keep content above nav */
+      min-height:calc(100vh - var(--navH) - 120px);
     }
-    h1 {
+    h1{
       margin:0; font-weight:900; line-height:1.1; letter-spacing:.01em;
-      text-wrap:balance; font-size:var(--headline);
-      color: var(--fg);
+      text-wrap:balance; font-size:var(--headline); color:var(--fg);
+      text-shadow:0 2px 18px rgba(0,0,0,.35);
     }
-    .cyan { color:var(--cyan) }
-    .pink { color:var(--pink) }
+    .cyan{color:var(--cyan)}
+    .pink{color:var(--pink)}
 
-    /* CTA button */
-    .cta-btn {
-      margin-top: 32px;
-      background: var(--cyan);
-      color: #000;
-      border: none;
-      border-radius: 50px; /* pilulka */
-      padding: 14px 36px;
-      font-size: 18px;
-      font-weight: 500; /* ne tučné, jen moderní */
-      cursor: pointer;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+    /* Bottom navigation */
+    .bottom-nav{
+      position:fixed; left:0; right:0; bottom:0;
+      height:var(--navH);
+      padding:8px max(12px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
+      background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 25%, rgba(0,0,0,.70) 100%);
+      display:grid; grid-template-columns:repeat(5,1fr); align-items:center; gap:6px;
+      z-index:2; -webkit-backdrop-filter:saturate(120%) blur(6px); backdrop-filter:saturate(120%) blur(6px);
     }
-    .cta-btn:hover {
-      transform: scale(1.05);
-      opacity: 0.9;
+    .nav-btn{
+      appearance:none; border:0; background:transparent; color:var(--fg);
+      width:100%; height:56px; display:flex; align-items:center; justify-content:center;
+      border-radius:12px; padding:6px; cursor:pointer;
+      transition:transform .12s ease, opacity .12s ease;
+      opacity:.95;
     }
+    .nav-btn:active{ transform:scale(.96); opacity:1 }
+    .nav-btn svg{ width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2; vector-effect:non-scaling-stroke }
 
-    /* Footer note */
-    footer {
-      display:flex; align-items:center; justify-content:center;
-      padding:18px; color:var(--muted); font-size:13px; opacity:.95;
-      text-align:center;
-      position:relative;
-      z-index:1;
+    /* Center + should be same style/size as others (no highlight) */
+    .nav-btn--center svg{ width:28px; height:28px }
+
+    /* Accessibility focus */
+    .nav-btn:focus-visible{
+      outline:2px solid rgba(255,255,255,.6);
+      outline-offset:2px;
     }
   </style>
 
@@ -109,12 +111,11 @@
 <body>
 
   <!-- Background video -->
-  <video autoplay muted loop playsinline id="bg-video">
+  <video autoplay muted loop playsinline id="bg-video" aria-hidden="true">
     <source src="assets/mixkit-skyscraper-in-the-city-seen-when-walking-the-street-40701-hd-ready.mp4" type="video/mp4" />
-    Your browser does not support HTML5 video.
   </video>
 
-  <!-- TOP: originální logo vlevo nahoře (80 px) -->
+  <!-- TOP: original logo (mobile 60px / desktop 80px) -->
   <div class="top">
     <img
       class="logo"
@@ -124,20 +125,54 @@
     />
   </div>
 
-  <!-- CENTER: slogan přesně na 3 řádky + CTA button -->
+  <!-- CENTER: slogan -->
   <main class="stage" aria-label="Hero">
     <h1>
       <span class="cyan">SHOW</span> YOUR<br/>
       <span class="pink">CREATE</span> BEFORE<br/>
       IT’S GONE
     </h1>
-    <button class="cta-btn">JOIN US</button>
   </main>
 
-  <!-- BOTTOM: status -->
-  <footer aria-label="Status">
-    This site is currently under construction.
-  </footer>
+  <!-- BOTTOM: clean icon-only nav -->
+  <nav class="bottom-nav" aria-label="Primary">
+    <!-- Home -->
+    <button class="nav-btn" aria-label="Home" title="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5v9a1 1 0 0 1-1 1h-5.5a1 1 0 0 1-1-1v-4.5h-4V21a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z"/>
+      </svg>
+    </button>
+
+    <!-- Search -->
+    <button class="nav-btn" aria-label="Search" title="Search">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"/>
+        <path d="M16.5 16.5L21 21"/>
+      </svg>
+    </button>
+
+    <!-- Plus (center) -->
+    <button class="nav-btn nav-btn--center" aria-label="Add" title="Add">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </button>
+
+    <!-- Flag (bookmark/flag) -->
+    <button class="nav-btn" aria-label="Flag" title="Flag">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 4v16M6 5h9l3 3H6"/>
+      </svg>
+    </button>
+
+    <!-- Profile -->
+    <button class="nav-btn" aria-label="Profile" title="Profile">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c1.5-3.5 5-5 7-5s5.5 1.5 7 5"/>
+      </svg>
+    </button>
+  </nav>
 
 </body>
 </html>
