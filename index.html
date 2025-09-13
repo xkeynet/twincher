@@ -20,12 +20,11 @@
       --bg:#000; --fg:#fff; --muted:#9aa0a6;
       --logo:80px;
       --headline:clamp(28px, 6.5vw, 56px);
-      --twb:#00D9FF;   /* Čistá Twincher Blue */
+      --twb:#00D9FF;   /* čistá Twincher Blue */
       --safeTop:16px; --safeSide:16px;
       --navH:78px;
       --icon:28px;
       --iconPlus:40px;
-      --hair:rgba(255,255,255,.08);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -79,7 +78,7 @@
     .cta-btn:hover{opacity:.92}
     .cta-btn:active{transform:scale(.98)}
 
-    /* Bottom nav */
+    /* Bottom nav (čisté ikony) */
     .nav{
       position:fixed; left:0; right:0; bottom:0;
       z-index:2;
@@ -102,8 +101,41 @@
     .nav svg{display:block}
 
     /* Ikony */
-    .ico{width:var(--icon); height:var(--icon); stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+    .ico{
+      width:var(--icon); height:var(--icon);
+      stroke:#fff; fill:none; stroke-width:2;
+      stroke-linecap:round; stroke-linejoin:round
+    }
     .ico-plus{width:var(--iconPlus); height:var(--iconPlus); stroke:var(--twb)}
+
+    /* --- Right-side action bar --- */
+    .side{
+      position:fixed;
+      right:12px;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:18px;
+      z-index:2;
+      pointer-events:auto;
+    }
+    .side button{
+      appearance:none; background:transparent; border:0;
+      width:48px; height:48px; padding:0; margin:0;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--fg); cursor:pointer;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,.35));
+    }
+    .side .count{
+      font-size:12px; color:#fff; text-align:center;
+      margin-top:4px; opacity:.9;
+      user-select:none;
+    }
+    .side .stack{display:flex; flex-direction:column; align-items:center}
+
+    /* vyhnout se kolizi se spodní navigací na velmi malých displejích */
+    @media (max-height: 630px){
+      .side{top:46%}
+    }
   </style>
 </head>
 <body>
@@ -133,6 +165,51 @@
     </h1>
     <button class="cta-btn" aria-label="Join Twincher">JOIN US</button>
   </main>
+
+  <!-- RIGHT: side actions -->
+  <aside class="side" aria-label="Actions">
+    <!-- Like -->
+    <div class="stack">
+      <button aria-label="Like">
+        <svg class="ico" viewBox="0 0 24 24">
+          <path d="M12 21s-6-4.35-9-8.1C1 10.5 2.5 7 6 7c2 0 3.2 1.1 4 2 0.8-0.9 2-2 4-2 3.5 0 5 3.5 3 5.9C18 16.65 12 21 12 21z"></path>
+        </svg>
+      </button>
+      <div class="count">875</div>
+    </div>
+
+    <!-- Comments -->
+    <div class="stack">
+      <button aria-label="Comments">
+        <svg class="ico" viewBox="0 0 24 24">
+          <path d="M4 6h16v10H8l-4 4z"></path>
+        </svg>
+      </button>
+      <div class="count">47</div>
+    </div>
+
+    <!-- Share -->
+    <div class="stack">
+      <button aria-label="Share">
+        <svg class="ico" viewBox="0 0 24 24">
+          <path d="M4 12v7h7"></path>
+          <path d="M4 19L19 4"></path>
+          <path d="M13 4h6v6"></path>
+        </svg>
+      </button>
+      <div class="count">Share</div>
+    </div>
+
+    <!-- Profile (avatar placeholder) -->
+    <div class="stack">
+      <button aria-label="Author profile">
+        <svg class="ico" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"></circle>
+          <path d="M4.5 20c1.8-3.5 5.1-5 7.5-5s5.7 1.5 7.5 5"></path>
+        </svg>
+      </button>
+    </div>
+  </aside>
 
   <!-- BOTTOM: čistá navigace -->
   <nav class="nav" aria-label="Primary">
