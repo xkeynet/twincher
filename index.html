@@ -15,7 +15,7 @@
   <!-- Favicon -->
   <link rel="icon" href="assets/IMG_4947.png" type="image/png" />
 
-  <!-- Lucide (ikonset) -->
+  <!-- Lucide (profi ikonset, MIT) -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
   <style>
@@ -41,41 +41,39 @@
     /* Background video */
     #bg-video{ position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
+    /* Unmute hint */
+    .unmute-hint{
+      position:fixed; left:50%; bottom:calc(18px + env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      background:rgba(0,0,0,.6);
+      color:#fff; padding:10px 14px; border-radius:999px;
+      font-size:13px; letter-spacing:.02em;
+      display:none; align-items:center; gap:8px;
+      z-index:3; backdrop-filter:blur(6px);
+    }
+    .unmute-hint .dot{width:8px;height:8px;border-radius:50%;background:#FF334B;box-shadow:0 0 0 2px rgba(0,0,0,.35)}
+    .unmute-hint.show{display:flex}
+
     /* Top bar (logo vlevo) */
     .top{ display:flex; align-items:center; gap:12px; padding:var(--safeTop) var(--safeSide) 0 var(--safeSide); position:relative; z-index:2; }
     .logo{ height:var(--logo); width:auto; user-select:none }
 
     /* TOP-CENTER: For You + šipka */
     .top-center{
-      position:fixed;
-      top:18px;
-      left:50%;
-      transform:translateX(-50%);
-      text-align:center;
-      z-index:3;
-      user-select:none;
-      pointer-events:none;
+      position:fixed; top:18px; left:50%; transform:translateX(-50%);
+      text-align:center; z-index:3; user-select:none; pointer-events:none;
     }
     .top-center .label{
-      color:#fff;
-      font-weight:700;
-      letter-spacing:.02em;
-      font-size:16px;
-      line-height:1.1;
+      color:#fff; font-weight:700; letter-spacing:.02em; font-size:16px; line-height:1.1;
       text-shadow:0 2px 10px rgba(0,0,0,.35);
     }
-    .top-center .arrow{
-      margin-top:3px;
-      width:18px; height:12px;
-      margin-left:auto; margin-right:auto;
-    }
+    .top-center .arrow{ margin-top:3px; width:18px; height:12px; margin-inline:auto; }
     .top-center .arrow svg{
-      width:18px; height:12px; display:block;
-      stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+      width:18px; height:12px; display:block; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
       filter: drop-shadow(0 1px 4px rgba(0,0,0,.35));
     }
 
-    /* Center slogan + CTA */
+    /* Center stage (slogan + CTA) */
     .stage{
       display:grid; place-items:center;
       padding:24px var(--safeSide);
@@ -120,22 +118,16 @@
 </head>
 <body>
 
-  <!-- Background video -->
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="assets/v15044gf0000d18cfcvog65vobobp1s0.mp4" type="video/mp4" />
+  <!-- Background video (tries with sound; falls back to muted if blocked) -->
+  <video autoplay loop playsinline id="bg-video">
+    <source src="assets/v15044gf0000d18cfcvog65vobobp1s0.mov" type="video/mp4" />
     Your browser does not support HTML5 video.
   </video>
 
-  <!-- Odmutování zvuku po prvním kliknutí -->
-  <script>
-    document.addEventListener('click', () => {
-      const video = document.getElementById('bg-video');
-      if (video) {
-        video.muted = false;
-        video.play();
-      }
-    }, { once: true });
-  </script>
+  <!-- Unmute hint (shown only if browser blocks autoplay with sound) -->
+  <div id="unmute" class="unmute-hint" aria-live="polite">
+    <span class="dot"></span> Tap to unmute
+  </div>
 
   <!-- TOP (logo vlevo) -->
   <div class="top">
@@ -146,13 +138,11 @@
   <div class="top-center" aria-hidden="true">
     <div class="label">For You</div>
     <div class="arrow">
-      <svg viewBox="0 0 24 14">
-        <path d="M3 3l9 8 9-8"></path>
-      </svg>
+      <svg viewBox="0 0 24 14"><path d="M3 3l9 8 9-8"></path></svg>
     </div>
   </div>
 
-  <!-- CENTER slogan + CTA -->
+  <!-- CENTER -->
   <main class="stage" aria-label="Hero">
     <h1>SHOW YOUR<br/>CREATE BEFORE<br/>IT’S GONE</h1>
     <button class="cta-btn" aria-label="Join Twincher">JOIN US</button>
@@ -188,9 +178,39 @@
     </ul>
   </nav>
 
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NGGQHD4HHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NGGQHD4HHC');
+  </script>
+
+  <!-- Icons + video autoplay helper -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide && lucide.createIcons) lucide.createIcons();
+
+      const v = document.getElementById('bg-video');
+      const hint = document.getElementById('unmute');
+
+      // Try to play with sound first
+      v.muted = false;
+      v.play().catch(() => {
+        // If blocked, start muted and show tap-to-unmute
+        v.muted = true;
+        v.play().catch(()=>{ /* ignore */ });
+        hint.classList.add('show');
+
+        const enableSound = () => {
+          v.muted = false;
+          v.play().catch(()=>{ /* ignore */ });
+          hint.classList.remove('show');
+          window.removeEventListener('pointerdown', enableSound, { once:true });
+        };
+        window.addEventListener('pointerdown', enableSound, { once:true });
+      });
     });
   </script>
 </body>
